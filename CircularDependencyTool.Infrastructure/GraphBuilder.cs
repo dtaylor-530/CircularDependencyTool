@@ -1,29 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 
 namespace CircularDependencyTool
 {
     public class GraphBuilder
     {
-        // NOTE: This method is invoked from AppWindow.xaml
-        public static IEnumerable<Graph> BuildGraphs()
+        public static Graph BuildGraph(string path)
         {
-            return new List<Graph>
-            {
-                BuildGraph("Simple.xml"),
-                BuildGraph("Complex.xml"),
-                BuildGraph("VeryCircular.xml"),                                
-                BuildGraph("SimpleCircular.xml"),
-                BuildGraph("ComplexCircular.xml"),                
-                BuildGraph("SuperCircular.xml")
-            };
-        }
-
-        static Graph BuildGraph(string xmlFileName)
-        {
-            string path = string.Format(@"Graphs\{0}", xmlFileName);
             XDocument xdoc = XDocument.Load(path);
 
             // Create a graph.
