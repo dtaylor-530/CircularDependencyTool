@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="References\MvvmFoundation.Wpf.dll" />
+    <None Remove="References\Thriple.dll" />
+    <None Remove="References\WPF.JoshSmith.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="References\MvvmFoundation.Wpf.dll" />
+    <Content Include="References\Thriple.dll" />
+    <Content Include="References\WPF.JoshSmith.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="GraphDetailsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GraphView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GraphWithDetailsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<graph title="Complex Graph">
+  <node id="A" x="200" y="10">
+    <dependency id="B" />
+    <dependency id="C" />
+  </node>
+  <node id="B" x="100" y="100">
+    <dependency id="C" />
+    <dependency id="D" />
+    <dependency id="E" />
+    <dependency id="F" />
+  </node>
+  <node id="C" x="300" y="100">
+    <dependency id="G" />
+  </node>
+  <node id="D" x="10" y="200">
+    <dependency id="G" />
+  </node>
+  <node id="E" x="100" y="200">
+    <dependency id="F" />
+  </node>
+  <node id="F" x="200" y="200" />
+  <node id="G" x="200" y="270">
+    <dependency id="E" />
+    <dependency id="F" />
+  </node>
+</graph>

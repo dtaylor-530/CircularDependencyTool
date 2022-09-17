@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<graph title="Very Circular Graph">
+  <node id="A" x="150" y="25">
+    <dependency id="B" />
+  </node>
+  <node id="B" x="250" y="125">
+    <dependency id="C" />
+    <dependency id="D" />
+  </node>
+  <node id="C" x="150" y="225">
+    <dependency id="E" />
+  </node>
+  <node id="D" x="50" y="125">
+    <dependency id="A" />
+    <dependency id="B" />
+  </node>
+  <node id="E" x="50" y="200">
+    <dependency id="D" />
+  </node>
+</graph>

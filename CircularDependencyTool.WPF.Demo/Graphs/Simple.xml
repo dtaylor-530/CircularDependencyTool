@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<graph title="Simple Graph">
+  <node id="A" x="50" y="50">
+    <dependency id="B" />
+  </node>
+  <node id="B" x="50" y="150">
+    <dependency id="C" />
+    <dependency id="D" />
+  </node>
+  <node id="C" x="50" y="250">
+    <dependency id="D" />
+  </node>
+  <node id="D" x="200" y="175" />
+</graph>
