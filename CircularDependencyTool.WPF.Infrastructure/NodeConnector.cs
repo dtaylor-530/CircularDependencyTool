@@ -1,9 +1,9 @@
-﻿using System;
+﻿using MvvmFoundation.Wpf;
+using Petzold.Media2D;
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media.Animation;
-using MvvmFoundation.Wpf;
-using Petzold.Media2D;
 using Thriple.Easing;
 
 namespace CircularDependencyTool
@@ -14,6 +14,11 @@ namespace CircularDependencyTool
     public class NodeConnector : ArrowLine
     {
         #region Constructor
+
+        static NodeConnector()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(NodeConnector), new FrameworkPropertyMetadata(typeof(NodeConnector)));
+        }
 
         public NodeConnector(Node startNode, Node endNode)
         {
@@ -33,7 +38,7 @@ namespace CircularDependencyTool
                 .RegisterHandler(n => n.LocationY, n => this.UpdateLocations(true));
         }
 
-        #endregion // Constructor
+        #endregion Constructor
 
         #region IsPartOfCircularDependency (DP)
 
@@ -43,7 +48,7 @@ namespace CircularDependencyTool
             private set { SetValue(IsPartOfCircularDependencyPropertyKey, value); }
         }
 
-        static readonly DependencyPropertyKey IsPartOfCircularDependencyPropertyKey =
+        private static readonly DependencyPropertyKey IsPartOfCircularDependencyPropertyKey =
              DependencyProperty.RegisterReadOnly(
             "IsPartOfCircularDependency",
             typeof(bool),
@@ -52,11 +57,11 @@ namespace CircularDependencyTool
 
         public static readonly DependencyProperty IsPartOfCircularDependencyProperty = IsPartOfCircularDependencyPropertyKey.DependencyProperty;
 
-        #endregion // IsPartOfCircularDependency (DP)
+        #endregion IsPartOfCircularDependency (DP)
 
         #region Private Helpers
 
-        static Point ComputeLocation(Node node1, Node node2)
+        private static Point ComputeLocation(Node node1, Node node2)
         {
             // Initially set the location to the center of the first node.
             Point loc = new Point
@@ -88,12 +93,12 @@ namespace CircularDependencyTool
             return loc;
         }
 
-        void SetIsPartOfCircularDependency()
+        private void SetIsPartOfCircularDependency()
         {
             this.IsPartOfCircularDependency = _startNode.CircularDependencies.Intersect(_endNode.CircularDependencies).Any();
         }
 
-        void SetToolTip()
+        private void SetToolTip()
         {
             string toolTipText = String.Format("{0} depends on {1}", _startNode.ID, _endNode.ID);
 
@@ -103,7 +108,7 @@ namespace CircularDependencyTool
             base.ToolTip = toolTipText;
         }
 
-        void UpdateLocations(bool animate)
+        private void UpdateLocations(bool animate)
         {
             var start = ComputeLocation(_startNode, _endNode);
             var end = ComputeLocation(_endNode, _startNode);
@@ -111,8 +116,8 @@ namespace CircularDependencyTool
             if (animate)
             {
                 base.BeginAnimation(ArrowLine.X1Property, CreateAnimation(base.X1, start.X));
-                base.BeginAnimation(ArrowLine.Y1Property, CreateAnimation(base.Y1, start.Y)); 
-                base.BeginAnimation(ArrowLine.X2Property, CreateAnimation(base.X2, end.X)); 
+                base.BeginAnimation(ArrowLine.Y1Property, CreateAnimation(base.Y1, start.Y));
+                base.BeginAnimation(ArrowLine.X2Property, CreateAnimation(base.X2, end.X));
                 base.BeginAnimation(ArrowLine.Y2Property, CreateAnimation(base.Y2, end.Y));
             }
             else
@@ -124,7 +129,7 @@ namespace CircularDependencyTool
             }
         }
 
-        static AnimationTimeline CreateAnimation(double from, double to)
+        private static AnimationTimeline CreateAnimation(double from, double to)
         {
             return new EasingDoubleAnimation
             {
@@ -135,15 +140,15 @@ namespace CircularDependencyTool
             };
         }
 
-        #endregion // Private Helpers
+        #endregion Private Helpers
 
         #region Fields
 
-        static readonly Duration _Duration = new Duration(TimeSpan.FromSeconds(1));
+        private static readonly Duration _Duration = new Duration(TimeSpan.FromSeconds(1));
 
-        readonly Node _startNode, _endNode;
-        readonly PropertyObserver<Node> _startObserver, _endObserver;
+        private readonly Node _startNode, _endNode;
+        private readonly PropertyObserver<Node> _startObserver, _endObserver;
 
-        #endregion // Fields
+        #endregion Fields
     }
 }
