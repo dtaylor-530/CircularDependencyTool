@@ -1,71 +1,68 @@
 ﻿<!-- DATACONTEXT = Graph -->
-<UserControl 
+<UserControl
   x:Class="CircularDependencyTool.GraphView"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:jas="clr-namespace:WPF.JoshSmith.Panels;assembly=WPF.JoshSmith"
-  xmlns:local="clr-namespace:CircularDependencyTool"  
-  >  
-  <UserControl.Resources>
-    <Style x:Key="NodeBorderStyle" TargetType="{x:Type Border}">
-      <Setter Property="Background" Value="LightGreen" />
-      <Setter Property="BorderBrush" Value="Gray" />
-      <Setter Property="BorderThickness" Value="3" />
-      <Setter Property="BorderBrush" Value="Gray" />
-      <Setter Property="Height" Value="{Binding Path=NodeHeight, Mode=OneTime}" />
-      <Setter Property="Padding" Value="4" />
-      <Setter Property="TextElement.FontWeight" Value="Normal" />
-      <Setter Property="Width" Value="{Binding Path=NodeWidth, Mode=OneTime}" />
-      <Style.Triggers>
-        <DataTrigger Binding="{Binding Path=HasCircularDependency, Mode=OneTime}" Value="True">
-          <Setter Property="Background" Value="Red" />
-          <Setter Property="BorderBrush" Value="Black" />
-          <Setter Property="TextElement.FontWeight" Value="Bold" />
-        </DataTrigger>
-      </Style.Triggers>
-    </Style>
-  </UserControl.Resources>
-  
-  <DockPanel Background="#BB000000">
-    <TextBlock 
-      DockPanel.Dock="Top" 
-      FontSize="22" 
-      FontWeight="Bold" 
+  xmlns:local="clr-namespace:CircularDependencyTool">
+    <UserControl.Resources>
+        <Style x:Key="NodeBorderStyle" TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="LightGreen" />
+            <Setter Property="BorderBrush" Value="Gray" />
+            <Setter Property="BorderThickness" Value="3" />
+            <Setter Property="BorderBrush" Value="Gray" />
+            <Setter Property="Height" Value="{Binding Path=NodeHeight, Mode=OneTime}" />
+            <Setter Property="Padding" Value="4" />
+            <Setter Property="TextElement.FontWeight" Value="Normal" />
+            <Setter Property="Width" Value="{Binding Path=NodeWidth, Mode=OneTime}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=HasCircularDependency, Mode=OneTime}" Value="True">
+                    <Setter Property="Background" Value="Red" />
+                    <Setter Property="BorderBrush" Value="Black" />
+                    <Setter Property="TextElement.FontWeight" Value="Bold" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <DockPanel Background="#BB000000">
+        <TextBlock
+      DockPanel.Dock="Top"
+      FontSize="22"
+      FontWeight="Bold"
       Foreground="WhiteSmoke"
       Padding="2"
-      Text="{Binding Path=Title, Mode=OneTime}" 
-      TextAlignment="Center"
-      />
-    
-    <local:NodeConnectionAdornerDecorator Graph="{Binding Path=., Mode=OneTime}">
-      <ItemsControl Background="LightGray" ItemsSource="{Binding Path=Nodes, Mode=OneTime}">
-        <ItemsControl.ItemsPanel>
-          <ItemsPanelTemplate>
-            <jas:DragCanvas />
-          </ItemsPanelTemplate>
-        </ItemsControl.ItemsPanel>
+      Text="{Binding Path=Title, Mode=OneTime}"
+      TextAlignment="Center" />
 
-        <ItemsControl.ItemTemplate>
-          <DataTemplate>
-            <Border Style="{StaticResource NodeBorderStyle}">
-              <TextBlock 
-                FontSize="18"
-                HorizontalAlignment="Center"               
-                VerticalAlignment="Center" 
-                Text="{Binding Path=ID, Mode=OneTime}" 
-                TextAlignment="Center" 
-                />
-            </Border>
-          </DataTemplate>
-        </ItemsControl.ItemTemplate>
-          
-        <ItemsControl.ItemContainerStyle>
-          <Style TargetType="{x:Type ContentPresenter}">
-            <Setter Property="Canvas.Left" Value="{Binding Path=LocationX, Mode=TwoWay}" />
-            <Setter Property="Canvas.Top" Value="{Binding Path=LocationY, Mode=TwoWay}" />
-          </Style>
-        </ItemsControl.ItemContainerStyle>
-      </ItemsControl>
-    </local:NodeConnectionAdornerDecorator>
-  </DockPanel>
+        <local:NodeConnectionAdornerDecorator Graph="{Binding Path=., Mode=OneTime}">
+            <ItemsControl Background="LightGray" ItemsSource="{Binding Path=Nodes, Mode=OneTime}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <jas:DragCanvas />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource NodeBorderStyle}">
+                            <TextBlock
+                                FontSize="18"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Text="{Binding Path=ID, Mode=OneTime}"
+                                TextAlignment="Center" />
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="{x:Type ContentPresenter}">
+                        <Setter Property="Canvas.Left" Value="{Binding Path=LocationX, Mode=TwoWay}" />
+                        <Setter Property="Canvas.Top" Value="{Binding Path=LocationY, Mode=TwoWay}" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+            </ItemsControl>
+        </local:NodeConnectionAdornerDecorator>
+    </DockPanel>
 </UserControl>
